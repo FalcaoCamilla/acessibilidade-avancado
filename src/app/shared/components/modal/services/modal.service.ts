@@ -1,4 +1,6 @@
-import { Injectable, TemplateRef } from "@angular/core";
+import { ComponentFactory, ComponentFactoryResolver, Injectable, Injector } from "@angular/core";
+import { ModalConfig } from "../interfaces/modal-config";
+import { ModalComponent } from "../modal.component";
 
 /*
  * Não utilizaremos o componente ModalComponent através da sua forma declarativa app-modal. 
@@ -6,23 +8,33 @@ import { Injectable, TemplateRef } from "@angular/core";
 */
 @Injectable()
 export class ModalService {
+  private _componentFactory: ComponentFactory<ModalComponent>;
+
+  constructor(
+    private _injector: Injector,
+    componentFactory: ComponentFactoryResolver
+  ) {
+    /*
+     * O ComponentFactoryResolver é a estrutura responsável por criar dinamicamente os componentes.
+     * Através do método resolveComponentFactory, atribuído a uma propriedade do tipo ComponentFactory<T>, é possível determinar de qual tipo (T) será o componente criado.
+     */
+    this._componentFactory = componentFactory.resolveComponentFactory(ModalComponent);
+  }
 
   public open(config: ModalConfig): ModalRef {
+    /*
+     * O método create referenciado pela propriedade _componentFactory do tipo ComponentFactory<ModalComponent> instancia, finalmente, o componente;
+     * Para utilizar o método create, deve-se fornecer os recursos necessários para o funcionamento correto do componente (injector);
+     * Através de uma referência, seu retorno (um componentRef) pode ter sua instância manipulada;
+     */ 
+    const componentRef = this._componentFactory.create(this._injector);
+    componentRef.instance;
     return new ModalRef();
   }
 }
-
-/*
- *  Define a estrutura que um objeto precisa ter para ser passado como parâmetro para o método "open()"
-*/
-export interface ModalConfig {
-  templateRef: TemplateRef<any>,
-  title: string
-}
-
 /*
  *  Utilizada para criar instâncias que representam referências para fechar o modal.
-*/
+ */
 export class ModalRef {
   public close() {
 
