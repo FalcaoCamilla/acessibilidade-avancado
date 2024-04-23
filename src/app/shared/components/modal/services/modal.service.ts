@@ -1,4 +1,4 @@
-import { ComponentFactory, ComponentFactoryResolver, Injectable, Injector } from "@angular/core";
+import { ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, Injector } from "@angular/core";
 import { ModalConfig } from "../interfaces/modal-config";
 import { ModalComponent } from "../modal.component";
 
@@ -22,21 +22,29 @@ export class ModalService {
   }
 
   public open(config: ModalConfig): ModalRef {
-    /*
-     * O método create referenciado pela propriedade _componentFactory do tipo ComponentFactory<ModalComponent> instancia, finalmente, o componente;
-     * Para utilizar o método create, deve-se fornecer os recursos necessários para o funcionamento correto do componente (injector);
-     * Através de uma referência, seu retorno (um componentRef) pode ter sua instância manipulada;
-     */ 
-    const componentRef = this._componentFactory.create(this._injector);
-    componentRef.instance;
-    return new ModalRef();
+    const componentRef = this._createComponentRef();
+    componentRef.instance.config = config;
+    // instance é a instância de ModalComponent
+    return new ModalRef(componentRef);
+  }
+
+  /*
+  * O método create referenciado pela propriedade _componentFactory do tipo ComponentFactory<ModalComponent> instancia, finalmente, o componente;
+  * Para utilizar o método create, deve-se fornecer os recursos necessários para o funcionamento correto do componente (injector);
+  * Através de uma referência, seu retorno (um componentRef) pode ter sua instância manipulada;
+  */ 
+  private _createComponentRef(): ComponentRef<ModalComponent> {
+    return this._componentFactory.create(this._injector);
   }
 }
 /*
  *  Utilizada para criar instâncias que representam referências para fechar o modal.
  */
 export class ModalRef {
-  public close() {
 
+  constructor(private _componentRef: ComponentRef<ModalComponent>) {}
+
+  public close(): void {
+    this._componentRef.destroy();
   }
 }
