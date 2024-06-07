@@ -31,6 +31,7 @@ export class ModalService {
   /*
   * O método create referenciado pela propriedade _componentFactory do tipo ComponentFactory<ModalComponent> instancia, finalmente, o componente;
   * Para utilizar o método create, deve-se fornecer os recursos necessários para o funcionamento correto do componente (injector);
+  * O injector fornece a informação de como injetar as dependências necessárias para aquele componente, permitindo que o Angular resolva e injete as dependências corretamente no componente recém-criado.
   * Através de uma referência, seu retorno (um componentRef) pode ter sua instância manipulada;
   */ 
   private _createComponentRef(): ComponentRef<ModalComponent> {
