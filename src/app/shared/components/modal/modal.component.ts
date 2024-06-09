@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { ModalConfig } from "./interfaces/modal-config";
 
 @Component({
   selector: 'app-modal',
@@ -7,5 +8,6 @@ import { Component } from "@angular/core";
 })
 
 export class ModalComponent {
+  public config: ModalConfig;
 
 }

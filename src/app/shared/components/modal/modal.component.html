@@ -1,0 +1,10 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <h1 class="modal-title">{{ config.title }}</h1>
+    <!-- Usado para agrupar elementos que são renderizado diretamente no DOM,
+      mas o próprio ng-container não aparece no DOM. -->
+    <ng-container *ngTemplateOutlet="config.templateRef">
+
+    </ng-container>
+  </div>
+</div>
