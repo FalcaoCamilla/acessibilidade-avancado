@@ -1,6 +1,7 @@
 import { ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, Injector } from "@angular/core";
 import { ModalConfig } from "../interfaces/modal-config";
 import { ModalComponent } from "../modal.component";
+import { BodyInjectorService } from "./body-injector.service";
 
 /*
  * Não utilizaremos o componente ModalComponent através da sua forma declarativa app-modal. 
@@ -11,6 +12,7 @@ export class ModalService {
   private _componentFactory: ComponentFactory<ModalComponent>;
 
   constructor(
+    private _bodyInjectorService: BodyInjectorService,
     private _injector: Injector,
     componentFactory: ComponentFactoryResolver
   ) {
@@ -23,8 +25,10 @@ export class ModalService {
 
   public open(config: ModalConfig): ModalRef {
     const componentRef = this._createComponentRef();
-    componentRef.instance.config = config;
     // instance é a instância de ModalComponent
+    componentRef.instance.config = config;
+    // antes de retornar a referência, o service BodyInjector realoca o componente para antes do app-root através do stackBeforeAppRoot
+    this._bodyInjectorService.stackBeforeAppRoot(componentRef)
     return new ModalRef(componentRef);
   }
 
