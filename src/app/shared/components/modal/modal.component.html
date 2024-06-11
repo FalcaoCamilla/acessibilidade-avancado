@@ -1,5 +1,14 @@
-<div class="modal-overlay">
-  <div class="modal-content">
+<div 
+  class="modal-overlay"
+  (click)="modalRef.close()"
+>
+  <!-- Quando um evento ocorre em um elemento, normalmente ele "sobe" pela árvore DOM, sendo propagado para os elementos pais.
+  Nesse caso, o clique seria propagado até o overlay, fazendo com que o modal fosse fechado indevidamente.
+  Ao usar $event.stopPropagation(), a propagação é interrompida, fazendo com que o clique seja "consumido" apenas pelo elemento em que ocorreu -->
+  <div 
+    class="modal-content"
+    (click)="$event.stopPropagation"
+  >
     <h1 class="modal-title">{{ config.title }}</h1>
     <!-- Usado para agrupar elementos que são renderizado diretamente no DOM,
       mas o próprio ng-container não aparece no DOM. -->
