@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AppComponent implements OnInit {
   @ViewChild('modal') public modalTemplateRef: TemplateRef<any>;
 
-  title = 'a11y-p2';
+  title = 'acessibilidade-angular';
   public firstName = 'Camilla';
   public modalRef: ModalRef;
 
