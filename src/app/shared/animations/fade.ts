@@ -14,10 +14,16 @@ export const fade = trigger(
         /*
          * No início da animação, o estilo do elemento é definido com uma opacidade de 0, tornando-o completamente invisível.
          */
-        animate(1000, style({opacity: 1}))
+        animate(100, style({opacity: 1}))
         /*
          * Anima-se a mudança de estilo durante 1000 milissegundos (1 segundo), aumentando a opacidade do elemento de 0 para 1, fazendo com que o elemento se desvaneça (fade in) e fique completamente visível ao final da animação.
          */
+      ]
+    ),
+    transition(
+      ':leave',
+      [
+        animate(100, style({opacity: 0}))
       ]
     )
   ]
