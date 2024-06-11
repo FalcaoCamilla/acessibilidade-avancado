@@ -1,6 +1,7 @@
 <div 
   class="modal-overlay"
   (click)="modalRef.close()"
+  (keydown.esc)="modalRef.close()"
 >
   <!-- Quando um evento ocorre em um elemento, normalmente ele "sobe" pela árvore DOM, sendo propagado para os elementos pais.
   Nesse caso, o clique seria propagado até o overlay, fazendo com que o modal fosse fechado indevidamente.
