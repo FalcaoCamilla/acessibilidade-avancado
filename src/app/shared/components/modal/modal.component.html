@@ -9,7 +9,10 @@
   <div 
     appFocusTrap
     appFocusBack
+    role="dialog"
     class="modal-content"
+    aria-modal="true"
+    [attr.aria-label]="config.title"
     (click)="$event.stopPropagation"
   >
     <h1 class="modal-title">{{ config.title }}</h1>
