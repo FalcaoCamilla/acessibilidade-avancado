@@ -13,7 +13,7 @@
     class="modal-content"
     aria-modal="true"
     [attr.aria-label]="config.title"
-    (click)="$event.stopPropagation"
+    (click)="$event.stopPropagation()"
   >
     <h1 class="modal-title">{{ config.title }}</h1>
     <!-- Usado para agrupar elementos que são renderizado diretamente no DOM,
